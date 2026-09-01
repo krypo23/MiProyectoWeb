@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cristán Polanco — Desarrollador Web</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #4361ee;
+      --accent-dark: #3451d1;
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #212529;
+      --muted: #6c757d;
+      --border: #dee2e6;
+      --done-text: #adb5bd;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin-top: 0.4rem;
+      font-size: 1.05rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--bg);
+    }
+
+    /* ── Sobre mí ── */
+    #sobre-mi p {
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    /* ── To-do list ── */
+    #lista-tareas {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    #lista-tareas li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    #lista-tareas li:hover { background: var(--bg); }
+
+    #lista-tareas li input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    #lista-tareas li span {
+      flex: 1;
+      font-size: 0.95rem;
+    }
+
+    #lista-tareas li.completada span {
+      text-decoration: line-through;
+      color: var(--done-text);
+    }
+
+    .btn-eliminar {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--border);
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 0 4px;
+      transition: color 0.15s;
+      opacity: 0;
+    }
+
+    #lista-tareas li:hover .btn-eliminar { opacity: 1; }
+    .btn-eliminar:hover { color: #e63946; }
+
+    /* ── Input area ── */
+    .agregar-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .agregar-form input {
+      flex: 1;
+      padding: 0.6rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .agregar-form input:focus { border-color: var(--accent); }
+    .agregar-form input::placeholder { color: var(--muted); }
+
+    .agregar-form button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .agregar-form button:hover { background: var(--accent-dark); }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--done-text);
+      font-size: 0.9rem;
+      padding: 1rem 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cristán Polanco</h1>
+    <p>Desarrollador Web</p>
+  </header>
+
+  <main>
+
+    <section class="card" id="sobre-mi">
+      <h2>Sobre mí</h2>
+      <p>
+        Hola, soy Cristán. Me dedico al desarrollo web con foco en crear experiencias
+        funcionales, accesibles y bien diseñadas. Disfruto resolver problemas reales con
+        código limpio y aprender algo nuevo en cada proyecto.
+      </p>
+    </section>
+
+    <section class="card" id="tareas">
+      <h2>Mi lista</h2>
+      <ul id="lista-tareas"></ul>
+      <div class="agregar-form">
+        <input type="text" id="input-tarea" placeholder="Nueva tarea..." maxlength="120" />
+        <button onclick="agregarTarea()">Agregar</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'cp_tareas';
+
+    function cargarTareas() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function guardarTareas(tareas) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tareas));
+    }
+
+    function renderizar() {
+      const tareas = cargarTareas();
+      const lista = document.getElementById('lista-tareas');
+      lista.innerHTML = '';
+
+      if (tareas.length === 0) {
+        lista.innerHTML = '<p class="empty-msg">Sin tareas aún. ¡Agrega una!</p>';
+        return;
+      }
+
+      tareas.forEach(function(t) {
+        const li = document.createElement('li');
+        if (t.completada) li.classList.add('completada');
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = t.completada;
+        cb.addEventListener('change', function() { toggleTarea(t.id); });
+
+        const span = document.createElement('span');
+        span.textContent = t.texto;
+
+        const btn = document.createElement('button');
+        btn.className = 'btn-eliminar';
+        btn.title = 'Eliminar';
+        btn.textContent = '✕';
+        btn.addEventListener('click', function() { eliminarTarea(t.id); });
+
+        li.appendChild(cb);
+        li.appendChild(span);
+        li.appendChild(btn);
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+      const input = document.getElementById('input-tarea');
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      const tareas = cargarTareas();
+      tareas.push({ id: Date.now(), texto: texto, completada: false });
+      guardarTareas(tareas);
+      input.value = '';
+      renderizar();
+      input.focus();
+    }
+
+    function toggleTarea(id) {
+      const tareas = cargarTareas().map(function(t) {
+        return t.id === id ? Object.assign({}, t, { completada: !t.completada }) : t;
+      });
+      guardarTareas(tareas);
+      renderizar();
+    }
+
+    function eliminarTarea(id) {
+      guardarTareas(cargarTareas().filter(function(t) { return t.id !== id; }));
+      renderizar();
+    }
+
+    document.getElementById('input-tarea').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') agregarTarea();
+    });
+
+    renderizar();
+  </script>
+
+</body>
+</html>
