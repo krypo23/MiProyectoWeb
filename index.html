@@ -210,6 +210,71 @@
       padding: 1rem 0 0.5rem;
     }
 
+    /* ── Timeline ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.45rem;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      position: relative;
+      padding: 0 0 1.5rem 1.25rem;
+    }
+
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -0.8rem;
+      top: 0.45rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--surface);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .tl-fecha {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-titulo {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .tl-empresa {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
     /* ── Proyectos ── */
     .proyectos-grid {
       display: grid;
@@ -298,6 +363,34 @@
         funcionales, accesibles y bien diseñadas. Disfruto resolver problemas reales con
         código limpio y aprender algo nuevo en cada proyecto.
       </p>
+    </section>
+
+    <section class="card" id="experiencia">
+      <h2>Experiencia</h2>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-fecha">2024 — Presente</div>
+          <div class="tl-titulo">Desarrollador Web Frontend</div>
+          <div class="tl-empresa">Agencia Pixel Sur · Santiago</div>
+          <div class="tl-desc">Desarrollo de interfaces para clientes del sector retail, optimización de rendimiento y mantenimiento de componentes reutilizables.</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-fecha">2022 — 2024</div>
+          <div class="tl-titulo">Desarrollador Junior</div>
+          <div class="tl-empresa">Freelance</div>
+          <div class="tl-desc">Diseño y construcción de sitios web para pequeñas empresas locales: landing pages, formularios de contacto y tiendas simples.</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-fecha">2021 — 2022</div>
+          <div class="tl-titulo">Prácticas en Desarrollo Web</div>
+          <div class="tl-empresa">Startup Nube Labs · Valparaíso</div>
+          <div class="tl-desc">Apoyo en la maquetación de una app SaaS. Primer contacto profesional con control de versiones y trabajo en equipo.</div>
+        </div>
+
+      </div>
     </section>
 
     <section class="card" id="proyectos">
