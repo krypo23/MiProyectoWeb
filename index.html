@@ -18,6 +18,18 @@
       --done-text: #adb5bd;
       --shadow: 0 2px 12px rgba(0,0,0,0.08);
       --radius: 12px;
+      --toggle-bg: rgba(255,255,255,0.2);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --text: #e9ecef;
+      --muted: #9ca3af;
+      --border: #2d3148;
+      --done-text: #4b5563;
+      --shadow: 0 2px 12px rgba(0,0,0,0.4);
+      --toggle-bg: rgba(0,0,0,0.25);
     }
 
     body {
@@ -26,6 +38,7 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ── Header ── */
@@ -34,7 +47,24 @@
       color: #fff;
       padding: 3rem 1.5rem 2.5rem;
       text-align: center;
+      position: relative;
     }
+
+    .btn-tema {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--toggle-bg);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-tema:hover { background: rgba(255,255,255,0.3); }
 
     header h1 {
       font-size: clamp(1.8rem, 5vw, 2.6rem);
@@ -232,11 +262,29 @@
       border-radius: 20px;
       border: 1px solid var(--border);
     }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
   <header>
+    <button class="btn-tema" id="btn-tema" onclick="toggleTema()" title="Cambiar tema">🌙 Oscuro</button>
     <h1>Cristán Polanco</h1>
     <p>Desarrollador Web</p>
   </header>
@@ -288,7 +336,28 @@
 
   </main>
 
+  <footer>
+    <p>Hecho con HTML, CSS y JS · <a href="https://github.com/krypo23" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
   <script>
+    /* ── Tema oscuro ── */
+    const TEMA_KEY = 'cp_tema';
+
+    function aplicarTema(oscuro) {
+      document.documentElement.setAttribute('data-theme', oscuro ? 'dark' : 'light');
+      document.getElementById('btn-tema').textContent = oscuro ? '☀️ Claro' : '🌙 Oscuro';
+    }
+
+    function toggleTema() {
+      const oscuro = document.documentElement.getAttribute('data-theme') !== 'dark';
+      localStorage.setItem(TEMA_KEY, oscuro ? 'dark' : 'light');
+      aplicarTema(oscuro);
+    }
+
+    aplicarTema(localStorage.getItem(TEMA_KEY) === 'dark');
+
+    /* ── Tareas ── */
     const STORAGE_KEY = 'cp_tareas';
 
     function cargarTareas() {
